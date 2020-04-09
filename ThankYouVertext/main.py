@@ -32,14 +32,7 @@ def createRandomDAGIter(n):
         n2 = random.randint(name, size) #d1
         #if n1 generated is unique
         checkandCreate(g1,name,n1,n2,randList)
-        # if name is not n1 and n1 not in randList:
-        #     g1.addDirectedEdge(g1.nodesList[name], g1.nodesList[n1])
-        #     randList.append(n1)
-        # # if n2 generated is unique
-        # if name is not n2 and n2 not in randList:
-        #     g1.addDirectedEdge(g1.nodesList[name], g1.nodesList[n2])
-        #     randList.append(n2)
-
+        
     return g1
 
 #main
