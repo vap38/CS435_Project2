@@ -3,10 +3,10 @@ class WeightedGraph:
     def __init__(self):
         self.dicOfNodes = {}
         self.nodesList = []
-  
+        
     def findNode(self, name):
         return self.dicOfNodes.get(name)
- 
+
     def getAllNodes(self):
         return self.dicOfNodes
   
