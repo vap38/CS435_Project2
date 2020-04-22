@@ -13,27 +13,27 @@ def checkandCreate(g1,name,randName1,randName2,randList):
         randList.append(randName2)
         
 def createRandomDAGIter(n):
-    g1 = DirectedGraph()
+    randGraph = DirectedGraph()
     i=0
     # Create n nodes
     while i<n:
-        g1.addNode(i)
+        randGraph.addNode(i)
         i+=1
 
     # Assign each node 2 random nodesList (might assign 0, 1 or 2 nodesList)
-    for i in range(len(g1.nodesList)):
+    for i in range(len(randGraph.nodesList)):
         randList = []
         #retreive the length of nodesList
-        size = len(g1.nodesList) - 1
+        size = len(randGraph.nodesList) - 1
         
-        name = g1.nodesList[i].name
+        name = randGraph.nodesList[i].name
         #generate random number
         n1 = random.randint(name, size) #d2
         n2 = random.randint(name, size) #d1
         #if n1 generated is unique
-        checkandCreate(g1,name,n1,n2,randList)
+        checkandCreate(randGraph,name,n1,n2,randList)
         
-    return g1
+    return randGraph
 
 #main
 randG1 = createRandomDAGIter(1000)
