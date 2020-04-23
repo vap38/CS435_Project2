@@ -11,20 +11,21 @@ class GraphSearch:
         stack = []
         traversalPath = []
         stack.append(start)
+            
         if not start or not end:
             return None
+
         while(stack):
             temp = stack.pop()
             traversalPath.append(temp)
-            temp.visited = True
+            if temp.name == end.name:
+                return traversalPath
             
             for node in temp.neighbors:
-                if node.visited is not True:
+                if not node.visited:
+                    temp.visited = True
                     stack.append(node)
-                if temp == end: 
-                    return traversalPath
-        return None
-    
+                
     def DFSRec(start,end):
         """returns traversal using Depth First Search recursively"""
         if start and end:
@@ -34,8 +35,8 @@ class GraphSearch:
         return None
     
     def DFSRecurHelper(start,end,traversalPath):
-        start.visited = True
         traversalPath.append(start)
+        start.visited = True
         if start.name == end.name:
             return traversalPath
         for i in range(0,len(start.neighbors)):
@@ -49,11 +50,11 @@ class GraphSearch:
         """returns traversal using Breadth first search iteratively"""
         queue = []
         traversalPath = []
-        gNodes = graph.getNodes()
-        for i in range(0,len(gNodes)):
-            if not gNodes[i].visited:
-                gNodes[i].visited = True
-                queue.append(gNodes[i])
+        gNodes = graph.getAllNodes()
+        for curr in gNodes.values():
+            if not curr.visited:
+                curr.visited = True
+                queue.append(curr)
                 #keeps track of lst
                 #length = len(queue)
                 while queue:
@@ -66,26 +67,51 @@ class GraphSearch:
                     #iterate through the nodes in temp.neighbors
                     nodes = temp.neighbors
                     for i in range(0,len(nodes)):
+                        
                     #for n in nodes:
                         #mark them visited
-                        if not nodes[i].visited:
-                            nodes[i].visited = True
+                        if not gNodes[nodes[i].name].visited:
+                            gNodes[nodes[i].name].visited = True
                             queue.append(nodes[i])
                             #length+=1
         return traversalPath
+    # def BFTRec(graph):
+    #     bftTraversal = []
+    #     visited = []
+    #     nodes = graph.getAllNodes()
+    #     for node in nodes.values():
+    #         if not node.visited:
+    #             node.visited = True
+    #             visited.append(node)
+    #             GraphSearch.myBFTRec(graph, visited, bftTraversal)
+    #     return bftTraversal
+
+    # def myBFTRec(graph, visited, bftTraversal):
+    #     if len(visited) == 0:
+    #         return
+    #     temp = visited.pop(0)
+    #     bftTraversal.append(temp)
+    #     nodes = temp.neighbors
+    #     for i in range(0,len(nodes)):
+    #         if not nodes[i].visited:
+    #             nodes[i].visited = True
+    #             visited.append(nodes[i])
+    #     GraphSearch.myBFTRec(graph, visited, bftTraversal)
     
+    #method, however it had some issue, though when traced on paper it works fine
+    #my method using nodesList, works and prints it prints a little extra nodes 
+    # and does not perfectly match bfsIter traversal's answer
     def BFTRec(graph):
         """returns traversal using Breadth First Search recursively"""
         bftTraversal=list()
         nodes = graph.nodesList
         for i in range(len(nodes)):
             visited = []
-            
             if nodes[i] not in visited:
-                
                 visited.append(nodes[i])
                 GraphSearch.bftRecHelper(graph,bftTraversal,visited)
         return bftTraversal
+
     def bftRecHelper(graph,bftTraversal,queue):
         #length = len(queue)
         if not queue:

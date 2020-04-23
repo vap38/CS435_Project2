@@ -12,6 +12,7 @@ class Graph:
             if n.name == name:
                 return n
         return 
+    
     def findNode(self, n):
         """checks if a node is in Graph"""
         return n in self.nodesList
@@ -20,18 +21,16 @@ class Graph:
         self.nodesList.append(GraphNode(name))
         self.dicNodes[name] = GraphNode(name)
     
-    def getnodesListSize(self):
+    def getNodesListSize(self):
         """returns the len of nodesList"""
         return len(self.nodesList)
     
-    def getNodes(self):
-        """returns all nodes in the list"""
-        return self.nodesList
-    
-    def getNodesdic(self):
-        """returns all nodes in the form of set"""
+    def getAllNodes(self):
+        """returns all nodes in the Graph"""
         return self.dicNodes
-    
+
+    def getNodesList(self):
+        return self.nodesList
     def addUndirectedEdge(self, first,second):
         """adds undirected edge between first and second node"""
         if not self.findNode(first):
