@@ -3,12 +3,12 @@ import sys
 from Graph import Graph
 from Graph import GraphNode
 from GraphSearch import GraphSearch
-def createRandomUnweighterGraph(n):
-    graph = Graph()
+def createGraph(graph,n):
     for i in range(n):graph.addNode(i)
-        #if n == 1:
-            #return g
-        #if n == 2:
+def createRandomUnweighterGraph(n):
+    """creates a random graph"""
+    graph = Graph()
+    createGraph(graph,n)
     neighs = random.randrange(1,n//3)
     nodes = graph.getNodes()
     size = graph.getnodesListSize()-1
@@ -17,23 +17,15 @@ def createRandomUnweighterGraph(n):
         suggested = random.sample(nodes[:x]+nodes[x+1:],neighs)
         for n in range(len(suggested)):
             graph.addUndirectedEdge(nodes[i],suggested[n])
-            #if size == 0:
-            #    return
-            #edges.append(random.randint(0,1))
-            #randomVals = set()
-            #neighboringNodes = random.randint(0,size)
-            #graph.nodesList[curr].neighbors.append(graph.nodesList[randNode])
-            #randomVals.append(randNode)
+            
     return graph
-#for creating linked list
+
 def createLinkedList(n):
+    """for creating linked list"""
     graph = Graph()
     previous = None
     d ={}
-    node_values = []
     for i in range(0,n+1,1):
-        # if i==0:
-        #     graph.addNode(i)
         graph.addNode(i)
         temp = graph.nodesList[graph.getnodesListSize()-1]
         if previous:
@@ -41,12 +33,14 @@ def createLinkedList(n):
         previous = temp
     return graph
 
-#returns linkedList
-def BFTIterLinkedList(graph):
-  return GraphSearch.BFTIter(graph)
 
-#print function for main
+def BFTIterLinkedList(graph):
+    """returns linkedList"""
+    return GraphSearch.BFTIter(graph)
+
+
 def printNodeNames(lst):
+    """print function for main"""
     for n in lst:print(n.name, end=" ")
     print()
     return 
@@ -104,7 +98,6 @@ graph2 = createLinkedList(10)
 
 lstOfNodes = graph2.getNodes()
 for i in range(len(allNodes)):
-#for n in allNodes:
     print(allNodes[i].name, "has", "edges ", sep = " ", end = ": ")
     printNodeNames(allNodes[i].neighbors)
 

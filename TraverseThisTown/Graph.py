@@ -4,43 +4,50 @@ from GraphNode import GraphNode
 class Graph:
     def __init__(self):
         self.nodesList= []
-        self.dict = {}
+        self.dicNodes = {}
     
     def getNodeName(self,name):
+        """returns name of the node"""
         for n in self.nodesList:
-            if n.name != name:
-                pass
-            else:
+            if n.name == name:
                 return n
         return 
-    #adds a new node to the graph
+    def findNode(self, n):
+        """checks if a node is in Graph"""
+        return n in self.nodesList
     def addNode(self,name):
+        """adds a new node to the graph"""
         self.nodesList.append(GraphNode(name))
-    #returns the len of nodesList
+        self.dicNodes[name] = GraphNode(name)
+    
     def getnodesListSize(self):
+        """returns the len of nodesList"""
         return len(self.nodesList)
-    #returns all nodes in the list
+    
     def getNodes(self):
+        """returns all nodes in the list"""
         return self.nodesList
-    #returns all nodes in the form of set
-    def getNodesDict(self):
-        res = {node for node in self.nodesList}
-        return res 
-    #adds undirected edge between first and second node
+    
+    def getNodesdic(self):
+        """returns all nodes in the form of set"""
+        return self.dicNodes
+    
     def addUndirectedEdge(self, first,second):
-        f = first  not in second.neighbors
-        s = second not in first.neighbors
-        if f:  
+        """adds undirected edge between first and second node"""
+        if not self.findNode(first):
+            self.addNode(first)
+        if not self.findNode(second):
+            self.addNode(second)
+        if first  not in second.neighbors:  
             first.neighbors.append(second)
-        if s:
+        if second not in first.neighbors:
             second.neighbors.append(first)
     
     def removeUndirectedEdge(self, first,second):
-        if first in second.neighbors:
-            second.neighbors.remove(first)
-        if second in first.neighbors:
-            first.neighbors.remove(second)
-
-
-
+        """remove undirected edge from graph"""
+        if self.findNode(first) and self.findNode(second) and second in self.nodesList[first]:
+            if first in second.neighbors:
+                second.neighbors.remove(first)
+            if second in first.neighbors:
+                first.neighbors.remove(second)
 
